@@ -1,6 +1,10 @@
 RewriteEngine On
 
-# Redirect all requests to index.php, except for existing files and directories
+# Redirect www to non-www
+RewriteCond %{HTTP_HOST} ^www\.agsarchives\.com$ [NC]
+RewriteRule ^(.*)$ https://agsarchives.com/$1 [L,R=301]
+
+# Redirect all traffic to index.php unless it's a file or folder that exists
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ index.php [QSA,L]
+RewriteRule ^(.*)$ index.php [L]
